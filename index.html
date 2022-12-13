@@ -336,7 +336,7 @@ Author URL: http://w3layouts.com
 
                 </div>
                 <div class="col-lg-7 mt-lg-0 mt-md-5 mt-4">
-                   <form class="main-input" id="gform" method="post" action="https://script.google.com/macros/s/AKfycby9fB9U8LAnq-lRHfgdUwM2GRCJtQm4JWY7GIA5feGEgv9O-gLn0L1x5yaqpJAIf0UT/exec" name="contact form">
+                   <form class="main-input" id="gform" action="" name="contact form">
                     <div class="top-inputs d-grid">
                         <input type="text" placeholder="Name" name="Name" id="w3lName" required onblur="namecheck()">
                         <label id="nmlabel" for="name" style="display: none; color:red;">This field is requierd</label>
@@ -672,8 +672,8 @@ function msgcheck()
 
 
 
-<!-- <script>
-  $("#submit-form").submit((e)=>{
+<script>
+  $("#gform").submit((e)=>{
       e.preventDefault()
       $.ajax({
           url:"https://script.google.com/macros/s/AKfycby9fB9U8LAnq-lRHfgdUwM2GRCJtQm4JWY7GIA5feGEgv9O-gLn0L1x5yaqpJAIf0UT/exec",
@@ -690,7 +690,7 @@ function msgcheck()
           }
       })
   })
-</script> -->
+</script>
 
 
 </body>
