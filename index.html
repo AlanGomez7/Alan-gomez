@@ -336,23 +336,26 @@ Author URL: http://w3layouts.com
 
                 </div>
                 <div class="col-lg-7 mt-lg-0 mt-md-5 mt-4">
-                    <form action="https://script.google.com/macros/s/AKfycby9fB9U8LAnq-lRHfgdUwM2GRCJtQm4JWY7GIA5feGEgv9O-gLn0L1x5yaqpJAIf0UT/exec" method="post" id="submit-form">
-                        <div class="twice-two">
-                            <input type="text" class="form-control" name="w3lName" id="w3lName" placeholder="Name"
-                                required="">
-                            <input type="email" class="form-control" name="w3lSender" id="w3lSender" placeholder="Email"
-                                required="">
-                        </div>
-                        <div class="twice">
-                            <input type="text" class="form-control" name="w3lSubject" id="w3lSubject"
-                                placeholder="Subject" required="">
-                        </div>
-                        <textarea name="w3lMessage" class="form-control" id="w3lMessage" placeholder="Message"
-                            required=""></textarea>
-                        <div class="text-right">
-                            <button type="submit" class="btn btn-secondary btn-style mt-4">Send Message</button>
-                        </div>
-                    </form>
+                   <form class="main-input" id="gform" method="post" action="https://script.google.com/macros/s/AKfycby9fB9U8LAnq-lRHfgdUwM2GRCJtQm4JWY7GIA5feGEgv9O-gLn0L1x5yaqpJAIf0UT/exec" name="contact form">
+                    <div class="top-inputs d-grid">
+                        <input type="text" placeholder="Name" name="Name" id="w3lName" required onblur="namecheck()">
+                        <label id="nmlabel" for="name" style="display: none; color:red;">This field is requierd</label>
+                        <label id="nmlabel-01" for="name" style="display: none; color:red;">Name does't start with number</label>
+                        <label id="nmlabel-02" for="name" style="display: none; color:red;">Name does't contain special charecters</label>
+                    </div>
+                    <input type="text" name="email" placeholder="Email" id="w3lSender" required onblur="emailcheck()">
+                    <label id="el" for="name" style="display: none; color:red;">This field is requierd</label>
+                    <label id="el-01" for="name" style="display: none; color:red;">Email does't start with number</label>
+                    <label id="el-02" for="name" style="display: none; color:red;">Email is invalid</label>
+                    <div>
+                    <textarea placeholder="Message" name="Message" id="w3lMessage"requierd onblur="msgcheck()"></textarea>
+                    <label id="ml" for="name" style="display: none; color:red;">This field is requierd</label>
+                    <label id="ml-01" for="name" style="display: none; color:red;">Minimum 50 letters</label>
+                    <div class="text-right">
+                        <button type="submit" value="send" class="btn btn-light" style="color: black;">Submit Now</button>
+                      </div>
+                      </div>
+                </form>
                 </div>
             </div>
         </div>
@@ -532,70 +535,109 @@ Author URL: http://w3layouts.com
   });
 </script>
 <!-- disable body scroll which navbar is in active -->
+    <script>
+  function namecheck()
+{
+    let name=document.getElementById("w3lName").value
+    let nm=null
+     nm = name.trim()
+   var letters = /^[A-Za-z]+$/;
+   var spc=/^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+[A-Za-z]*$/;
+    document.getElementById("w3lName").value = nm;
+    if(nm==""||name==null)
+    {
+        document.getElementById("nmlabel").style.display="block"
+        return false
+    }
+    else if(!isNaN(nm[0]))
+    {
+        document.getElementById("nmlabel").style.display="none"
+        document.getElementById("nmlabel-01").style.display="block"
+        return false
+    }
+    else if(nm.match(spc))
+    {
+        document.getElementById("nmlabel").style.display="none" 
+        document.getElementById("nmlabel-01").style.display="none"  
+        document.getElementById("nmlabel-02").style.display="block"
+        return false
+    }
+    else{
+        document.getElementById("nmlabel").style.display="none" 
+        document.getElementById("nmlabel-01").style.display="none" 
+        document.getElementById("nmlabel-02").style.display="none"
+        return true
+
+    }
+  }
+
+  function emailcheck()
+{
+    var val=document.getElementById("w3lSender").value
+    var v=null
+     v = val.trim()
+    document.getElementById("w3lSender").value = v;
+    if(v==""||val==null)
+    {
+        document.getElementById("el").style.display="block"
+        return false
+    }
+    else if(!isNaN(v[0]))
+    {
+        document.getElementById("el-01").style.display="block"
+        return false
+    }
+
+
+    else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v))
+  {
+    document.getElementById("el-02").style.display="block"
+    return false
+  }
+    // alert("You have entered an invalid email address!")
+    // return (false)
+
+
+
+    else{
+        document.getElementById("el").style.display="none" 
+        document.getElementById("el-01").style.display="none"
+        document.getElementById("el-02").style.display="none" 
+        return true
+
+    }
+}
+
+function msgcheck()
+{
+
+    var val=document.getElementById("w3lMessage").value
+    var v=null
+     v = val.trim()
+    document.getElementById("w3lMessage").value = v;
+    var n=v.length
     
-    
-<script>
-const form = document.getElementById("submit-form");
-const fullname = document.getElementById("fullname");
-const email = document.getElementById("email");
-const message = document.getElementById("message");
+    if(v==""||val==null)
+    {
+        document.getElementById("ml").style.display="block"
+        return false
+    }
+    else if(50>=n)
+    {
+        console.log(v.length)
+        document.getElementById("ml-01").style.display="block"  
+        return false      
+    }
+    else{
+        document.getElementById("ml").style.display="none" 
+        document.getElementById("ml-01").style.display="none"   
+        return true
 
-const setSuccess = (element) => {
-  const inputElement = element.parentElement.querySelector(".form-control");
-  const errorDisplay = element.parentElement.querySelector(".form-error");
-  errorDisplay.innerText = "";
-  inputElement.classList.remove("error");
-  inputElement.classList.add("success");
-};
+    }
+}
 
-const setError = (element, message) => {
-  const inputElement = element.parentElement.querySelector(".form-control");
-  const errorDisplay = element.parentElement.querySelector(".form-error");
-  errorDisplay.innerText = message;
-  inputElement.classList.add("error");
-  inputElement.classList.remove("success");
-};
-
-const isValidEmail = (email) => {
-  const regularEx =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return regularEx.test(String(email).toLowerCase());
-};
-
-const validateInput = () => {
-  const nameValue = fullname.value.trim();
-  const emailValue = email.value.trim();
-  const messageValue = message.value.trim();
-  if (nameValue === "") {
-    setError(fullname, "Full name is required");
-  } else {
-    setSuccess(fullname);
-  }
-  if (emailValue === "") {
-    setError(email, "Email is required");
-  } else if (!isValidEmail(emailValue)) {
-    setError(email, "Provide a valid email address");
-  } else {
-    setSuccess(email);
-  }
-  if (messageValue === "") {
-    setError(message, "Message is required");
-  } else {
-    setSuccess(message);
-  }
-};
-
-const onSubmitForm = (e) => {
-  e.preventDefault();
-  validateInput();
-  if (
-    !email.classList.contains("error") &&
-    !fullname.classList.contains("error") &&
-    !message.classList.contains("error")
-  ) {
-
-form.addEventListener("submit", onSubmitForm);
 </script>
+
 <!-- MENU-JS -->
 <script>
   $(window).on("scroll", function () {
